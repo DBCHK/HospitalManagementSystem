@@ -10,10 +10,15 @@ Youtube :youtube.com/lazycoders
 
 
 
+from django.conf import settings
 from django.contrib import admin
 from django.urls import path
 from hospital import views
 from django.contrib.auth.views import LoginView,LogoutView
+
+from django.views.static import serve
+from django.conf.urls import url
+
 
 
 #-------------FOR ADMIN RELATED URLS
@@ -75,6 +80,8 @@ urlpatterns = [
     path('admin-approve-appointment', views.admin_approve_appointment_view,name='admin-approve-appointment'),
     path('approve-appointment/<int:pk>', views.approve_appointment_view,name='approve-appointment'),
     path('reject-appointment/<int:pk>', views.reject_appointment_view,name='reject-appointment'),
+        url(r'^media/(?P<path>.*)$', serve,{'document_root':       settings.MEDIA_ROOT}), 
+    url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}), 
 ]
 
 
